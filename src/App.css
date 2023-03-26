@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+#checkbox:checked+label .switch-ball {
+  background-color: white;
+  transform: translateX(24px);
+  transition: transform 0.3s linear;
+}
+
+#checkbox:not(:checked)+label .switch-ball {
+  background-color: black;
+  transform: translateX(0px);
+  transition: transform 0.3s linear;
+}
