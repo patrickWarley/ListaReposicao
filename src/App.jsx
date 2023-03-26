@@ -5,15 +5,34 @@ import List from './assets/components/List';
 import OffCanvas from './assets/components/OffCanvas';
 import Menu from './assets/components/Menu';
 import Toggle from './assets/components/Toggle';
+import axios from 'axios';
+
+
 function App() {
   const [currList, setCurrList] = useState(0);
-  const [lists, setLists] = useState(reposicao.lists);
-  const [showList, setShowList] = useState(reposicao.lists[0]);
+  const [lists, setLists] = useState(null);
+  const [showList, setShowList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  const getLists = async () => {
+    try {
+
+      const request = await axios.get('https://patrickwarley.github.io/reposicao.json');
+      setLists(request.data.lists);
+      setShowList(request.data.lists[0]);
+      setCategories(request.data.categories);
+
+      console.log(request.data)
+
+    } catch (e) { console.log(e); }
+  }
 
   useEffect(() => {
-    setLists(reposicao.lists);
-    setShowList(reposicao.lists.slice());
+
+    getLists();
+    //setLists(reposicao.lists);
+    //setShowList(reposicao.lists.slice());
   }, []);
 
   useEffect(() => {
@@ -69,7 +88,7 @@ function App() {
       <OffCanvas title={'Menu'}>
         <Menu
           callback={(categories) => setSelectedCategory(categories)}
-          categories={reposicao.categories}
+          categories={categories}
           initialValues={selectedCategory}
         />
       </OffCanvas>
