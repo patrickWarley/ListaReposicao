@@ -72,7 +72,7 @@ function App() {
 
     if (showList === null) return;
 
-    //if selectedCategory is null just reset the list
+    //if selectedCategory is null just reset the listcenter
     if (selectedCategory === null) return setShowList(lists[currList]);
 
     var result = lists[currList].rows.filter(category => selectedCategory.indexOf(category[0]) !== -1);

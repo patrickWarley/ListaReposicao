@@ -20,11 +20,11 @@ function Menu({ callback, categories, initialValues }) {
   return (
     <div>
       <div className="container flex flex-col dark:text-white">
-        <button onClick={() => callback(selectedItems)} className="text-white bg-slate-800 dark:bg-white dark:text-slate-800 p-3"> Aplicar filtros</button>
+        <button onClick={() => callback(selectedItems)} className="text-white bg-slate-800 dark:bg-white dark:text-slate-800 active:bg-green-400 p-3"> Aplicar filtros</button>
         <ul>
           {
             categories.map(category =>
-              <li key={category} className="p-3 "><a onClick={() => addItem(category)}>{category}</a></li>)
+              <li key={category} className="m-2"><a onClick={() => addItem(category)} className="block p-3 hover:text-white hover:bg-slate-800 dark:hover:bg-green-500 rounded">{category}</a></li>)
           }
         </ul>
         <div className="container flex flex-wrap">
