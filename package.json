@@ -1,9 +1,9 @@
 {
-  "name": "client",
+  "homepage": "https://patrickwarley.github.io/ListaReposicao/",
+  "name": "listareposicao",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://patrickwarley.github.io/ListaReposicao/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

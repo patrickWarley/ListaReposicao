@@ -4,10 +4,11 @@ const List = ({ list, orderByEndereco, orderBySku }) => {
     let { target } = evt;
 
     target.parentElement.classList.toggle('bg-green-400');
+    target.parentElement.classList.toggle('text-slate-900');
   }
   return (
     <div className="container text-center bg-transparent list">
-      <table className="w-full my-3 table-auto border-collapse font-bold dark:bg-slate-900 dark:text-slate-500 border-slate-800 border">
+      <table className="w-full my-3 table-auto border-collapse font-bold dark:bg-slate-900 dark:text-white border-slate-800 border">
         <thead>
           <tr className="border border-slate-800">
             <th className="p-2"><a onClick={orderByEndereco}>Endereco</a></th>

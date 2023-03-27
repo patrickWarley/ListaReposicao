@@ -77,14 +77,14 @@ function App() {
 
     var result = lists[currList].rows.filter(category => selectedCategory.indexOf(category[0]) !== -1);
 
-    if (result.length !== 0) return setShowList({ "name": showList.name, "rows": result });
+    if (result.length !== 0) return setShowList({ "name": lists[currList].name, "rows": result });
 
     setShowList(lists[currList]);
   }
 
 
   return (
-    <div className='w-screen dark:bg-slate-800 flex flex-col items-center justify-center'>
+    <div className='min-h-screen w-screen dark:bg-slate-800 flex flex-col items-center'>
       <OffCanvas title={'Menu'}>
         <Menu
           callback={(categories) => setSelectedCategory(categories)}
