@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react";
+
 const List = ({ list, orderByEndereco, orderBySku }) => {
+
+  const [stateList, setStateList] = useState(list);
+
+  //I need to tranform this in a statefull list
+  //because I want to keep the information about the select line
 
   function select(evt) {
     let { target } = evt;
 
+    if (target.nodeName === "SPAN") {
+      target = target.parentElement;
+    }
+
     target.parentElement.classList.toggle('bg-green-400');
     target.parentElement.classList.toggle('text-slate-900');
   }
+
+  //I wanna save the state of the list
+
   return (
     <div className="container text-center bg-transparent list">
       <table className="w-full my-3 table-auto border-collapse font-bold dark:bg-slate-900 dark:text-white border-slate-800 border">
@@ -18,7 +32,7 @@ const List = ({ list, orderByEndereco, orderBySku }) => {
         </thead>
         <tbody>
           {
-            list.map((row, index) => (
+            stateList.map((row, index) => (
               <tr onClick={select} className="border border-slate-800" key={`${row.dedcription}-${index}`}>
                 <td className="p-2 align-middle">{row.address}</td>
                 <td className="flex flex-col p-2 align-middle">

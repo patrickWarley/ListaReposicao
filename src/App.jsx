@@ -56,19 +56,11 @@ function App() {
 
 
   const orderByEndereco = () => {
-    let result = lists[currList].rows.sort((a, b) => {
-      return a.address > b.address ? 1 : a.address === b.address ? 0 : -1;
-    });
-
-    setLists({ ...lists, result })
+    console.log("Need to implement this!");
   }
 
   const orderBySku = () => {
-    let result = lists[currList].rows.sort((a, b) => {
-      return a.sku > b.sku ? 1 : a.sku === b.sku ? 0 : -1;
-    })
-
-    setLists({ ...lists, result })
+    console.log("Need to implement this!");
   }
 
   const filter = () => {
