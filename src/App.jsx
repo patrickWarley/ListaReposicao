@@ -15,9 +15,8 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categories, setCategories] = useState([]);
 
-  const getLists = async () => {
+  const getListsServer = async () => {
     try {
-
       const request = await axios.get('https://patrickwarley.github.io/reposicao.json');
       setLists(request.data.lists);
       setShowList(request.data.lists[0]);
@@ -28,11 +27,15 @@ function App() {
     } catch (e) { console.log(e); }
   }
 
+  const getListsLocal = () => {
+    setLists(reposicao.lists);
+    setShowList(reposicao.lists[0]);
+    setCategories(reposicao.categories);
+  }
+
   useEffect(() => {
 
-    getLists();
-    //setLists(reposicao.lists);
-    //setShowList(reposicao.lists.slice());
+    getListsServer();
   }, []);
 
   useEffect(() => {
