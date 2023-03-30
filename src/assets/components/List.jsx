@@ -7,6 +7,8 @@ const List = ({ list, orderByEndereco, orderBySku }) => {
   //I need to tranform this in a statefull list
   //because I want to keep the information about the select line
 
+  useEffect(() => setStateList(list), [list]);
+
   function select(evt) {
     let { target } = evt;
 
