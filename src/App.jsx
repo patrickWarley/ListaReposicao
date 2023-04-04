@@ -24,12 +24,10 @@ function App() {
     filter();
   }, [selectedCategory]);
 
-  const proximaLista = () => {
-    //increment list
-    let nextList = currList + 1;
-    if (nextList <= lists.length - 1)
-      return setCurrList(nextList);
-    setCurrList(0);
+  const proximaLista = (incr) => {
+    let nextList = currList + incr;
+    nextList === lists.length ? nextList = 0 : nextList < 0 ? nextList = lists.length - 1 : nextList;
+    return setCurrList(nextList);
   }
 
 
@@ -75,7 +73,8 @@ function App() {
       </OffCanvas>
       <div className=' w-full contianer justify-end flex'>
         <Toggle />
-        <button onClick={proximaLista} className=' p-3 m-3 bg-green-400 border drop-shadow'>Proxima lista</button>
+        <button onClick={() => proximaLista(-1)} className=' p-3 m-3 bg-green-400 border drop-shadow'>Anterior</button>
+        <button onClick={() => proximaLista(1)} className=' p-3 m-3 bg-green-400 border drop-shadow'>Proxima</button>
       </div>
       {
         lists !== null &&
