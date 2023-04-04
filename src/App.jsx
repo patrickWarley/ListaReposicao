@@ -5,15 +5,37 @@ import List from './assets/components/List';
 import OffCanvas from './assets/components/OffCanvas';
 import Menu from './assets/components/Menu';
 import Toggle from './assets/components/Toggle';
+import axios from 'axios';
+
+
 function App() {
   const [currList, setCurrList] = useState(0);
-  const [lists, setLists] = useState(reposicao.lists);
-  const [showList, setShowList] = useState(reposicao.lists[0]);
+  const [lists, setLists] = useState(null);
+  const [showList, setShowList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  const getListsServer = async () => {
+    try {
+      const request = await axios.get('https://patrickwarley.github.io/reposicao.json');
+      setLists(request.data.lists);
+      setShowList(request.data.lists[0]);
+      setCategories(request.data.categories);
+
+      console.log(request.data)
+
+    } catch (e) { console.log(e); }
+  }
+
+  const getListsLocal = () => {
+    setLists(reposicao.lists);
+    setShowList(reposicao.lists[0]);
+    setCategories(reposicao.categories);
+  }
 
   useEffect(() => {
-    setLists(reposicao.lists);
-    setShowList(reposicao.lists.slice());
+
+    getListsServer();
   }, []);
 
   useEffect(() => {
@@ -32,42 +54,34 @@ function App() {
 
 
   const orderByEndereco = () => {
-    let result = lists[currList].rows.sort((a, b) => {
-      return a.address > b.address ? 1 : a.address === b.address ? 0 : -1;
-    });
-
-    setLists({ ...lists, result })
+    console.log("Need to implement this!");
   }
 
   const orderBySku = () => {
-    let result = lists[currList].rows.sort((a, b) => {
-      return a.sku > b.sku ? 1 : a.sku === b.sku ? 0 : -1;
-    })
-
-    setLists({ ...lists, result })
+    console.log("Need to implement this!");
   }
 
   const filter = () => {
 
     if (showList === null) return;
 
-    //if selectedCategory is null just reset the list
+    //if selectedCategory is null just reset the listcenter
     if (selectedCategory === null) return setShowList(lists[currList]);
 
     var result = lists[currList].rows.filter(category => selectedCategory.indexOf(category[0]) !== -1);
 
-    if (result.length !== 0) return setShowList({ "name": showList.name, "rows": result });
+    if (result.length !== 0) return setShowList({ "name": lists[currList].name, "rows": result });
 
     setShowList(lists[currList]);
   }
 
 
   return (
-    <div className='w-screen dark:bg-slate-800 flex flex-col items-center justify-center'>
+    <div className='min-h-screen w-screen dark:bg-slate-800 flex flex-col items-center'>
       <OffCanvas title={'Menu'}>
         <Menu
           callback={(categories) => setSelectedCategory(categories)}
-          categories={reposicao.categories}
+          categories={categories}
           initialValues={selectedCategory}
         />
       </OffCanvas>
