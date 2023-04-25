@@ -9,9 +9,11 @@ const List = ({ list, orderByEndereco, orderBySku }) => {
 
   useEffect(() => setStateList(list), [list]);
 
-  function select(evt) {
+  function select(evt, row) {
     let { target } = evt;
-
+    
+    row.selected = row.selected?false:true;
+    
     if (target.nodeName === "SPAN") {
       target = target.parentElement;
     }
@@ -35,7 +37,7 @@ const List = ({ list, orderByEndereco, orderBySku }) => {
         <tbody>
           {
             stateList.map((row, index) => (
-              <tr onClick={select} className="border border-slate-800" key={`${row.dedcription}-${index}`}>
+              <tr onClick={(evt) => select(evt, row)} className={`${row.selected?"bg-green-400 text-slate-900":""} border border-slate-800`} key={`${row.description[0]}-${index}`}>
                 <td className="p-2 align-middle">{row.address}</td>
                 <td className="flex flex-col p-2 align-middle">
                   <span >{row.description[0]}</span>
