@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import reposicao from '../reposicao.json';
 import List from './assets/components/List';
 import OffCanvas from './assets/components/OffCanvas';
 import Menu from './assets/components/Menu';
@@ -17,12 +16,10 @@ function App() {
 
   const getListsServer = async () => {
     try {
-      const request = await axios.get('https://patrickwarley.github.io/reposicao.json');
+      const request = await axios.get('/reposicao.json');
       setLists(request.data.lists);
       setShowList(request.data.lists[0]);
       setCategories(request.data.categories);
-
-      console.log(request.data)
 
     } catch (e) { console.log(e); }
   }
