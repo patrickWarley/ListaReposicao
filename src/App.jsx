@@ -5,7 +5,7 @@ import OffCanvas from './assets/components/OffCanvas';
 import Menu from './assets/components/Menu';
 import Toggle from './assets/components/Toggle';
 import axios from 'axios';
-
+import UserSelector from './assets/components/UserSelector';
 
 function App() {
   const [currList, setCurrList] = useState(0);
@@ -68,6 +68,14 @@ function App() {
     setShowList(lists[currList]);
   }
 
+  const setUser = (user) => {
+
+    console.log(user)
+    //const request = axios.get('/user.json');
+    //get the users info
+    //find the info of the user that interests me
+    //set everything
+  }
 
   return (
     <div className='min-h-screen w-screen dark:bg-slate-800 flex flex-col items-center'>
@@ -79,6 +87,10 @@ function App() {
         />
       </OffCanvas>
       <div className=' w-full contianer justify-end flex'>
+        <UserSelector
+          users={['Veronica', 'Vinicius', 'Morcego', 'Josimar', 'Patrick']}
+          onSelect={(user) => setUser(user)}
+        />
         <Toggle />
         <button onClick={() => proximaLista(-1)} className=' p-3 m-3 bg-green-400 border drop-shadow'>Anterior</button>
         <button onClick={() => proximaLista(1)} className=' p-3 m-3 bg-green-400 border drop-shadow'>Proxima</button>
