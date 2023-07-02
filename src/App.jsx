@@ -17,10 +17,11 @@ function App() {
   const getListsServer = async () => {
     try {
       const request = await axios.get('/reposicao.json');
-      setLists(request.data.lists);
-      setShowList(request.data.lists[0]);
-      setCategories(request.data.categories);
-
+      if (request.status === 200) {
+        setLists(request.data.lists);
+        setShowList(request.data.lists[0]);
+        setCategories(request.data.categories);
+      }
     } catch (e) { console.log(e); }
   }
 
@@ -31,24 +32,18 @@ function App() {
   }
 
   useEffect(() => {
-
     getListsServer();
   }, []);
 
   useEffect(() => {
     filter();
-  }, [currList]);
-
-  useEffect(() => {
-    filter();
-  }, [selectedCategory]);
+  }, [currList, selectedCategory]);
 
   const proximaLista = (incr) => {
     let nextList = currList + incr;
     nextList === lists.length ? nextList = 0 : nextList < 0 ? nextList = lists.length - 1 : nextList;
     return setCurrList(nextList);
   }
-
 
   const orderByEndereco = () => {
     console.log("Need to implement this!");
@@ -65,6 +60,7 @@ function App() {
     //if selectedCategory is null just reset the listcenter
     if (selectedCategory === null) return setShowList(lists[currList]);
 
+    //each row is a different category
     var result = lists[currList].rows.filter(category => selectedCategory.indexOf(category[0]) !== -1);
 
     if (result.length !== 0) return setShowList({ "name": lists[currList].name, "rows": result });
