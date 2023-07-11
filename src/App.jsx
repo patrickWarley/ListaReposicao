@@ -14,6 +14,7 @@ function App() {
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [categories, setCategories] = useState([]);
 	const [users, setUsers] = useState([]);
+	const [user, setUser] = useState(null);
 
 	const getListsServer = async () => {
 		try {
@@ -50,6 +51,13 @@ function App() {
 		filter();
 	}, [currList, selectedCategory]);
 
+	useEffect(() => {
+		//get the user info
+		if (user === null) return;
+
+		const request = axios.get
+	}, [user]);
+
 	const proximaLista = (incr) => {
 		let nextList = currList + incr;
 		nextList === lists.length ? nextList = 0 : nextList < 0 ? nextList = lists.length - 1 : nextList;
@@ -77,15 +85,6 @@ function App() {
 		if (result.length !== 0) return setShowList({ "name": lists[currList].name, "rows": result });
 
 		setShowList(lists[currList]);
-	}
-
-	const setUser = (user) => {
-
-		console.log(user)
-		//const request = axios.get('/user.json');
-		//get the users info
-		//find the info of the user that interests me
-		//set everything
 	}
 
 	return (
