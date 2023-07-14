@@ -14,7 +14,6 @@ function App() {
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [categories, setCategories] = useState([]);
 	const [users, setUsers] = useState([]);
-	const [user, setUser] = useState(null);
 
 	const getListsServer = async () => {
 		try {
@@ -42,6 +41,20 @@ function App() {
 		setCategories(reposicao.categories);
 	}
 
+	const selectUser = async (user) => {
+		console.log('well')
+		try {
+			const request = await axios.get(`/user/${user}`);
+			const user = request.data;
+
+			//I get the categories selected by user and save it on the state
+			//setSelectedCategory(user.categories);
+
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
 	useEffect(() => {
 		getListsServer();
 		getUsers();
@@ -51,12 +64,6 @@ function App() {
 		filter();
 	}, [currList, selectedCategory]);
 
-	useEffect(() => {
-		//get the user info
-		if (user === null) return;
-
-		const request = axios.get
-	}, [user]);
 
 	const proximaLista = (incr) => {
 		let nextList = currList + incr;
@@ -99,7 +106,7 @@ function App() {
 			<div className=' w-full contianer justify-end flex'>
 				<UserSelector
 					users={users}
-					onSelect={(user) => setUser(user)}
+					onSelect={selectUser}
 				/>
 				<Toggle />
 				<button onClick={() => proximaLista(-1)} className=' p-3 m-3 bg-green-400 border drop-shadow'>Anterior</button>
